@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="demo.ssm.dao.CustDao">
+    <select id="findAll" resultType="cust">
+        select * from s_cust;
+    </select>
+
+    <select id="findCustByNameOrType" resultType="cust">
+        select * from s_cust
+        <where>
+            <if test="cust_name != null and cust_name.length > 0">
+                cust_name like #{cust_name}
+            </if>
+            <if test="cust_type != null and cust_type.length > 0">
+                and cust_type like #{cust_type}
+            </if>
+        </where>
+    </select>
+
+    <select id="findCustLinkUser" resultType="cust">
+        select * from s_cust;
+    </select>
+
+    <insert id="addCust" parameterType="cust">
+        insert into s_cust(cust_name, cust_type, cust_phone, cust_address, cust_link_user) VALUES (#{cust_name}, #{cust_type}, #{cust_phone}, #{cust_address}, #{cust_link_user})
+    </insert>
+
+    <delete id="deleteCust" parameterType="java.lang.String">
+        delete from s_cust where cid = #{cid};
+    </delete>
+</mapper>
